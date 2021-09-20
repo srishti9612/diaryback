@@ -53,14 +53,27 @@ usersRouter.post('/entry', async (request, response) => {
   const body = request.body
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
+
   if (!token || !decodedToken.id){
     return response.status(401).json({ error: 'token missing or invalid' })
   }
+  
   const user = await User.findById(decodedToken.id)
+
+  const createdOnDetails = body.date.split(' ')
+
+  const createdOn = {
+    weekday: createdOnDetails[0],
+    month: createdOnDetails[1],
+    day: Number(createdOnDetails[2]),
+    year: Number(createdOnDetails[3]),
+    time: createdOnDetails[4]
+  }
 
   const entry = {
     content: body.content,
-    date: body.date
+    date: body.date,
+    createdOn: createdOn
   }
 
   user.entries.push(entry)
@@ -76,6 +89,7 @@ usersRouter.post('/entry', async (request, response) => {
 usersRouter.get('/entries', async (request, response) => {
    const body = request.body
    const token = getTokenFrom(request)
+   
    if(token!=null){
     const decodedToken = jwt.verify(token, process.env.SECRET)
     if (!token || !decodedToken.id) {

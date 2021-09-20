@@ -18,11 +18,22 @@ const userSchema = new mongoose.Schema({
        type: String
      },
 
+     createdOn: {
+        weekday: { type: String },
+        month: { type: String },
+        day: { type: Number },
+        year: { type: Number },
+        time: { type: String }
+     },
+
      content: {
        type: String
      }
    }
   ]
+ 
+  // maximum streak
+	// current consecutive value
 
 })
 
