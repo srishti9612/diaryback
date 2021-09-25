@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
   entries: [
    {
      date: {
-       type: String
+       type: Date
+     },
+
+     week: {
+       type: Number
      },
 
      createdOn: {
@@ -30,10 +34,13 @@ const userSchema = new mongoose.Schema({
        type: String
      }
    }
-  ]
+  ],
  
-  // maximum streak
-	// current consecutive value
+  lastcreated: { type: Number },
+     
+  currentstreak: { type: Number },
+     
+  longeststreak: { type: Number }
 
 })
 
