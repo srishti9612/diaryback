@@ -3,6 +3,7 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
+console.log = function () {}
 
 /*A method to extract token from the request*/
 const getTokenFrom = request => {
